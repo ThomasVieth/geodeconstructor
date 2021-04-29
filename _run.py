@@ -12,7 +12,7 @@ from os.path import abspath, dirname, join
 ## internal imports
 
 from geodeconstructor.history.json import generate_location_history_json
-from geodeconstructor.history.locations import iter_unique_country_path
+from geodeconstructor.history.locations import iter_unique_path_by_attribute
 
 ## Argument parsing
 
@@ -127,9 +127,9 @@ if __name__ == "__main__":
             return True
 
     # Start the iteration... and return in generator form.
-        generator = iter_unique_country_path(json["locations"], _new_filter)
+        generator = iter_unique_path_by_attribute(args.attr, json["locations"], _new_filter)
     else:
-        generator = iter_unique_country_path(json["locations"])
+        generator = iter_unique_path_by_attribute(args.attr, json["locations"])
 
     # Upon requesting CSV, open the CSV file for writing.
     if args.export == "csv":
