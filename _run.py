@@ -37,6 +37,14 @@ argument_parser.add_argument(
     type=str,
     default="stdout"
 )
+argument_parser.add_argument(
+    "-f",
+    "--filename",
+    help="The name of the file that should be exported.",
+    type=str,
+    default="Location History"
+)
+
 
 argument_parser.add_argument(
     "--startdate",
@@ -126,7 +134,7 @@ if __name__ == "__main__":
     # Upon requesting CSV, open the CSV file for writing.
     if args.export == "csv":
         csv = open(
-            join(dirname(args.filepath), "Location History.csv"),
+            join(dirname(args.filepath), f"{args.filename}.csv"),
             "w+"
         )
         # Using '' instead of "" due to use of them within CSV output.
@@ -140,17 +148,9 @@ if __name__ == "__main__":
         kml_styles = [
             IconStyle(
                 color="#00FF00", # GREEN
-                icon=ItemIcon(
-                    href="http://maps.google.com/mapfiles" \
-                    "/kml/shapes/placemark_circle.png"
-                )
             ),
             IconStyle(
                 color="#FF0000", # RED
-                icon=ItemIcon(
-                    href="http://maps.google.com/mapfiles" \
-                    "/kml/shapes/placemark_circle.png"
-                )
             )
         ]
 
@@ -191,4 +191,4 @@ if __name__ == "__main__":
     if args.export == "csv":
         csv.close()
     elif args.export == "kml":
-        kml.save(join(dirname(args.filepath), "Location History.kml"))
+        kml.save(join(dirname(args.filepath), f"{args.filename}.kml"))
